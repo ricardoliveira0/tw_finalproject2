@@ -1,0 +1,15 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Fnec: New Product</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+    <body>
+        <p>Foi adicionado um novo produto!</p>
+        <p th:text="'Tipo: ' + ${type} + ';'" />
+        <p th:text="'Nome: ' + ${label} + ';'" />
+        <p th:text="'Preço: ' + ${price} + ';'" />
+        <p th:text="'Quantidade: ' + ${quantity} + ';'" />
+        <p th:text="'Descrição: ' + ${desc} + '.'" />
+    </body>
+</html>
