@@ -4,25 +4,24 @@
         <title>Fnec: Gestão de Produtos</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <style>
-        table, th, td {
-            border: 1px solid black;
+            table, th, td {
+                border: 1px solid black;
             }
         </style>
     </head>
     <body>
         <script>
             function toggleDiv() {
-              var div = document.getElementById("addDiv");
-              if (div.style.display === "none") {
-                div.style.display = "block";
-              } else {
-                div.style.display = "none";
-              }
+                var div = document.getElementById("addDiv");
+                if (div.style.display === "none") {
+                    div.style.display = "block";
+                } else {
+                    div.style.display = "none";
+                }
             }
         </script>
-        <h2>Gestão de Produtos</h2>
-        <!-- <p th:text="${productsList}" /> -->
 
+        <h2>Gestão de Produtos</h2>
         <button onclick="toggleDiv()">Adicionar</button>
         <div id="addDiv" style="display: none">
             <form method='post' th:action='@{/add}'>
@@ -62,6 +61,5 @@
                 </td>
             </tr>
         </table>
-
     </body>
 </html>

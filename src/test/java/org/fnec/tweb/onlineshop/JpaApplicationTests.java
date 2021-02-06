@@ -1,4 +1,4 @@
-package org.therestaurant.tweb.jpa;
+package org.fnec.tweb.onlineshop;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

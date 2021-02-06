@@ -15,14 +15,17 @@
                <form class="text" method="get">
                     <input type="text" value="">
                     <input type="submit" value="Pesquisar">
-                    <a href="advanced_search.html">Pesquisa avançada</a>
+                    <a href="advanced_search">Pesquisa avançada</a>
                </form>
                <div id="auth">
-                    <form action="login.html">
-                         <input class="auth" type="submit" value="Entrar"/>
+                    <form sec:authorize="isAnonymous()" action="/login">
+                         <input type="submit" class="auth" value="Entrar"/>
                     </form>
-                    <form action="signup.html">
+                    <form sec:authorize="isAnonymous()" action="/signup">
                          <input type="submit" class="auth" value="Registar"/>
+                    </form>
+                    <form sec:authorize="isAuthenticated()" method='post' th:action='@{/logout}'>
+                         <input type="submit" class="auth" value="Sair">
                     </form>
                </div>
           </div>
