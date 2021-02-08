@@ -23,6 +23,12 @@
                     <form sec:authorize="isAnonymous()" action="/signup">
                          <input type="submit" class="auth" value="Registar"/>
                     </form>
+                    <form sec:authorize="hasRole('ROLE_USER')" action="/list-orders">
+                         <input type="submit" class="auth" value="Carrinho"/>
+                    </form>
+                    <form sec:authorize="hasRole('ROLE_ADMIN')" action="/list-products">
+                         <input type="submit" class="auth" value="Gerir"/>
+                    </form>
                     <form sec:authorize="isAuthenticated()" method='post' th:action='@{/logout}'>
                          <input type="submit" class="auth" value="Sair">
                     </form>

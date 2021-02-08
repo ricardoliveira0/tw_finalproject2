@@ -26,6 +26,12 @@
                     <form sec:authorize="isAnonymous()" action="/signup">
                          <input type="submit" class="auth" value="Registar"/>
                     </form>
+                    <form sec:authorize="hasRole('ROLE_USER')" action="/list-orders">
+                         <input type="submit" class="auth" value="Carrinho"/>
+                    </form>
+                    <form sec:authorize="hasRole('ROLE_ADMIN')" action="/list-products">
+                         <input type="submit" class="auth" value="Gerir"/>
+                    </form>
                     <form sec:authorize="isAuthenticated()" method='post' th:action='@{/logout}'>
                          <input type="submit" class="auth" value="Sair">
                     </form>
@@ -46,23 +52,17 @@
                </div>
 
                <div id="selectProduct">
-                    <div id="initialInfo">
-                         <h1>iPhone 11 Pro Max 256GB</h1>
-                         <a href="images/iphone_11pmax.png"><img src="images/iphone_11pmax.png"></a>
-                         <div id=text>
-                              <p>Tipo de Telemóvel: Smarthphone iOS</p>
-                              <p>Resolução do Ecrã: 2688 x 1242 px</p>
-                              <p>Processador: Apple A13 Bionic</p>
-                              <p>GPS: GLONASS, Galileu e QZSS</p>
-                              <p>Som: Altifalante estéreo integrado</p>
-                              <p>Mensagens: iMessage, SMS, MMS, E-Mail, Push E-Mail</p>
-                              <p>Interfaces: Lightning</p>
-                              <p>Cartão SIM: Nano-SIM + eSIM</p>
-                              <p>Dimensões: 158 x 77,8 x 8,1 mm</p><br>
-                         </div>
-                         <h1>1.179,00€</h1>
+                    <div id="initialInfo" th:each="product: ${products}">
+                         <form th:action='@{/new-order}' method='post'>
+                              <h1 th:text="${product.label}"></h1>
+                              <a th:href="@{'/images/{id}' + '.png' (id=${product.id})}"><img th:src="@{${'/images/' + product.id + '.png'}}"></a>
+                              <div id=text>
+                                   <p th:text="${product.desc}"></p><br>
+                              </div>
+                              <h1 th:text="${product.price}+'€'"></h1>
+                              <input type="submit" class="auth" value="Adicionar">
+                         </form>
                     </div>
-                    
                     <!--
                     <div id="info">
                          <form>

@@ -24,7 +24,7 @@
                     <form sec:authorize="isAnonymous()" action="/signup">
                          <input type="submit" class="auth" value="Registar"/>
                     </form>
-                    <form sec:authorize="hasRole('ROLE_USER')" action="/list-orders-view">
+                    <form sec:authorize="hasRole('ROLE_USER')" action="/list-orders">
                          <input type="submit" class="auth" value="Carrinho"/>
                     </form>
                     <form sec:authorize="hasRole('ROLE_ADMIN')" action="/list-products">
@@ -33,6 +33,7 @@
                     <form sec:authorize="isAuthenticated()" method='post' th:action='@{/logout}'>
                          <input type="submit" class="auth" value="Sair">
                     </form>
+                    <div style="color: white" sec:authorize="isAuthenticated()">Olá <span sec:authentication="name"></span>!</div>
                </div>
           </div>
           <div id="wrapperIndex">
@@ -49,51 +50,13 @@
 
                <div id="products">
                     <h3>1-5 de 11</h3>
-                    <div id="product">
-                         <a href="product"><img src="images/iphone_11pmax.png"></a>
-                         <a href="product"><h2>Apple iPhone 11 Pro Max 256GB</h2></a>
-                         <p>Dimensão do ecrã: 6.50''</p>
-                         <p>RAM: 4GB</p>
-                         <p>Resolução da Câmara: 12.0MP + 12.0MP + 12.0MP</p>
-                         <p>Bateria: Li-Ion 4000mAh</p>
-                         <h1>1.179,00€</h1>
+                    <div id="product" th:each="product: ${listProductsPage}">
+                         <a th:href="@{/product?id={id} (id=${product.id})}"><img th:src="@{${'/images/' + product.id + '.png'}}"/></a>
+                         <a th:href="@{/product?id={id} (id=${product.id})}"><h2 th:text="${product.label}"></h2></a>
+                         <p th:text="${product.desc}"></p>
+                         <h1 th:text="${product.price}+'€'"></h1>
                     </div>
-                    <div id="product">
-                         <a href="#"><img src="images/iphone_11p.png"></a>
-                         <a href="#"><h2>Apple iPhone 11 Pro 64GB</h2></a>
-                         <p>Dimensão do ecrã: 5.80''</p>
-                         <p>RAM: 4GB</p>
-                         <p>Resolução da Câmara: 12.0MP + 12.0MP + 12.0MP</p>
-                         <p>Bateria: Li-Ion 3000mAh</p>
-                         <h1>999,00€</h1>
-                    </div>
-                    <div id="product">
-                         <a href="#"><img src="images/xiaomi_mi10.png"></a>
-                         <a href="#"><h2>Xiaomi Mi 10 Lite 128GB</h2></a>
-                         <p>Dimensão do ecrã: 6.57''</p>
-                         <p>RAM: 6GB</p>
-                         <p>Resolução da Câmara: 48.0MP + 8.0MP + 2.0MP + 2.0MP</p>
-                         <p>Bateria: Li-Po 4100mAh</p>
-                         <h1>449,99€</h1>
-                    </div>
-                    <div id="product">
-                         <a href="#"><img src="images/samsung_galaxys20.png"></a>
-                         <a href="#"><h2>Samsung Galaxy S20 128GB</h2></a>
-                         <p>Dimensão do ecrã: 6.20''</p>
-                         <p>RAM: 8GB</p>
-                         <p>Resolução da Câmara: 64.0MP + 12.0MP + 12.0MP</p>
-                         <p>Bateria: Li-Ion 4000mAh</p>
-                         <h1>929,99€</h1>
-                    </div>
-                    <div id="product">
-                         <a href="#"><img src="images/huawei_mate40p.png"></a>
-                         <a href="#"><h2>Huawei Mate 40 Pro 256GB</h2></a>
-                         <p>Dimensão do ecrã: 6.76''</p>
-                         <p>RAM: 8GB</p>
-                         <p>Resolução da Câmara: 50.0MP + 28.0MP + 12.0MP</p>
-                         <p>Bateria: 4400mAh</p>
-                         <h1>1.249,99€</h1>
-                    </div>
+                    
                     <div id="pageSelector">
                          <ul>
                               <li><a href="#page1" id="bold">1</a></li>

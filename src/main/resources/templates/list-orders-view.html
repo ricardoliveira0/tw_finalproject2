@@ -1,8 +1,10 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>Fnec: Encomendas</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+        <title>Fnec - Encomendas</title>
+        <link rel="stylesheet" href="style.css">
+        <link rel="icon" type="image/png" href="images/fnec_32x32.png">
         <style>
             table, th, td {
                 border: 1px solid black;
@@ -10,20 +12,65 @@
         </style>
     </head>
     <body>
+        <div id="navigationBar">
+            <a href="/"><img src="images\fnec_logo.png" alt="Logótipo da loja"></a>
+            <form class="text" method="get">
+                 <input type="text" value="">
+                 <input type="submit" value="Pesquisar">
+                 <a href="advanced_search">Pesquisa avançada</a>
+            </form>
 
-        <p>Lista de Encomendas</p>
-        <p th:text="${ordersList}" />
+            <div id="auth">
+                 <form sec:authorize="isAnonymous()" action="/login">
+                      <input type="submit" class="auth" value="Entrar"/>
+                 </form>
+                 <form sec:authorize="isAnonymous()" action="/signup">
+                      <input type="submit" class="auth" value="Registar"/>
+                 </form>
+                 <form sec:authorize="hasRole('ROLE_USER')" action="/list-orders">
+                      <input type="submit" class="auth" value="Carrinho"/>
+                 </form>
+                 <form sec:authorize="hasRole('ROLE_ADMIN')" action="/list-products">
+                      <input type="submit" class="auth" value="Gerir"/>
+                 </form>
+                 <form sec:authorize="isAuthenticated()" method='post' th:action='@{/logout}'>
+                      <input type="submit" class="auth" value="Sair">
+                 </form>
+            </div>
+        </div>
+        <div id="cashoutBasket">
+            <p>Lista de Encomendas</p>
+            <table>
+                <tr th:each="order: ${ordersList}">
+                    <td th:text="'Nro Encomenda: ' + ${order.ID}"/>
+                    <td th:text="'ID de Cliente: ' + ${order.getClientID()}"/>
+                    <td th:text="'Nro Série do Produto: ' + ${order.pID}"/>
+                </tr>
+            </table>
 
-        <p>Lista de Encomendas</p>
-        <table>
-            <tr th:each="order: ${ordersList}">
-                <td th:text="'ID: ' + ${order.id}"/>
-                <td th:text="'ClientID: ' + ${order.getClientID()}"/>
-                <td th:text="'Entrada: ' + ${order.entry}"/>
-                <td th:text="'Prato Principal: ' + ${order.mainCourse}"/>
-                <td th:text="'Bebida: ' + ${order.drink}"/>
-                <td th:text="'Sobremesa: ' + ${order.dessert}"/>
-            </tr>
-        </table>
+            <div id="info">
+                <form>
+                    <p>Método de Entrega:<p>
+                    <input type="radio" name="sendMethod" id="ctt" value="1"/>
+                    <label for="ctt"><img src="images/ctt.png"/></label>
+                    <input type="radio" name="sendMethod" id="shop" value="1"/>
+                    <label for="shop"><img src="images/fnecShop.png"/></label><br><br>
+                    <i>(O envio por CTT tem um acréscimo de 4,99€ para Portugal Continental)</i>
+                </form>
+            </div>
+
+            <div id="paymentMethod">
+                    <p id="textPayment">Selecione o método de pagamento pretendido:</p>
+                    <form method="POST">
+                        <input type="radio" name="method" id="choose-1" value="1"/>
+                        <label for="choose-1"><img src="images/paypal.png"/></label>
+                        <input type="radio" name="method" id="choose-2" value="1"/>
+                        <label for="choose-2"><img src="images/MB.png"/></label>
+                        <input type="radio" name="method" id="choose-3" value="1"/>
+                        <label for="choose-3"><img src="images/credDeb.png"/></label><br><br>
+                        <input type="submit" class="auth" value="Comprar">
+                    </form>
+            </div> 
+        </div>
     </body>
 </html>

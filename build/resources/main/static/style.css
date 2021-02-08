@@ -80,6 +80,12 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
+#cashoutBasket {
+    height: auto;
+    width: 800px;
+    margin-left: 80px;
+    margin-bottom: 20px;
+}
 
 #products {
     height: auto;

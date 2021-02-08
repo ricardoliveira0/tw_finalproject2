@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
@@ -18,23 +19,18 @@ public class NewOrderController {
     
     @PostMapping("/new-order")
 	public String newOrder(
-			@RequestParam(name="clientID", required=false) long clientID, 
-			@RequestParam(name="entry", required=false, defaultValue="") String entry,
-			@RequestParam(name="mainCourse", required=false, defaultValue="") String mainCourse,
-			@RequestParam(name="drink", required=false, defaultValue="") String drink,
-			@RequestParam(name="dessert", required=false, defaultValue="") String dessert,
+			@ModelAttribute Orders order,
 			Model model) 
 	{
-		
+
+		model.addAttribute("order", new Orders());
+		/* System.out.println(pID);
 		Client client = clientRepository.findById(clientID);
-		ordersRepository.save(new Orders(client, entry, mainCourse, drink, dessert));
-
+		ordersRepository.save(new Orders(client, pID));
+		model.addAttribute("order", order);
 		model.addAttribute("clientID", clientID);
-		model.addAttribute("entry", entry);
-		model.addAttribute("mainCourse", mainCourse);
-		model.addAttribute("drink", drink);
-		model.addAttribute("dessert", dessert);
+		model.addAttribute("pID", pID); */
 
-		return "new-order-view";
+		return "order";
 	}
 }

@@ -16,7 +16,7 @@ public class Orders {
 	private Long id;
 
 	@Column(nullable = false)
-	private String entry, mainCourse, drink, dessert;
+	private Long pID;
 	
 
 	@ManyToOne
@@ -25,19 +25,16 @@ public class Orders {
 
 	protected Orders() {}
 
-	public Orders(Client client, String entry, String mainCourse, String drink, String dessert) {
+	public Orders(Client client, Long pID) {
 		this.client = client;
-		this.entry = entry;
-		this.mainCourse = mainCourse;
-		this.drink = drink;
-		this.dessert= dessert;
+		this.pID = pID;
 	}
 
 	@Override
 	public String toString() {
 		return String.format(
-				"Orders[id=%d, clientID=%d, entry='%s', mainCourse='%s', drink='%s', dessert='%s']",
-				id, client.getId(), entry, mainCourse, drink, dessert);
+				"Orders[id=%d, clientID=%d, pID='%d']",
+				id, client.getId(), pID);
 	}
 	
 	public Long getId() {
@@ -48,19 +45,7 @@ public class Orders {
 		return client.getId();
 	}
 
-	public String getEntry() {
-		return entry;
-	}
-	
-	public String getMainCourse() {
-		return mainCourse;
-	}
-	
-	public String getDrink() {
-		return drink;
-	}
-	
-	public String getDessert() {
-		return dessert;
+	public Long getPID() {
+		return pID;
 	}
 }

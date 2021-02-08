@@ -8,8 +8,12 @@
         <p>Foi adicionado um novo produto!</p>
         <p th:text="'Tipo: ' + ${type} + ';'" />
         <p th:text="'Nome: ' + ${label} + ';'" />
-        <p th:text="'Preço: ' + ${price} + ';'" />
+        <p th:text="'Preço: ' + ${price} + '€;'" />
         <p th:text="'Quantidade: ' + ${quantity} + ';'" />
         <p th:text="'Descrição: ' + ${desc} + '.'" />
+        <br>
+        <form method="get" action="/list-products">
+            <button type="submit">Voltar</button>
+        </form>
     </body>
 </html>
